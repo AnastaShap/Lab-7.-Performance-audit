@@ -9,8 +9,21 @@ export const SORT_OPTIONS = [
   { value: 'name', label: 'За іменем' },
 ];
 
+// Рейтинг залежить лише від даних репетитора, тому рахуємо його один раз
+// і запам'ятовуємо. WeakMap не тримає об'єкти в пам'яті, якщо вони зникнуть.
+const scoreCache = new WeakMap();
+
+function getScore(tutor) {
+  let score = scoreCache.get(tutor);
+  if (score === undefined) {
+    score = tutorScore(tutor);
+    scoreCache.set(tutor, score);
+  }
+  return score;
+}
+
 const comparators = {
-  recommended: (a, b) => tutorScore(b) - tutorScore(a),
+  recommended: (a, b) => getScore(b) - getScore(a),
   'price-asc': (a, b) => a.pricePerHour - b.pricePerHour,
   'price-desc': (a, b) => b.pricePerHour - a.pricePerHour,
   experience: (a, b) => b.experienceYears - a.experienceYears,

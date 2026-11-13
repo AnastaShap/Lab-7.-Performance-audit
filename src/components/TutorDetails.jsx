@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import RatingStars from './RatingStars';
+import { photoSources } from '../utils/images';
 import { averageRating, weightedRating } from '../utils/rating';
 import { formatPrice, formatDate, pluralize, FORMAT_LABELS } from '../utils/format';
 
@@ -23,7 +24,7 @@ export default function TutorDetails({ tutor, isFavorite, onToggleFavorite, onCl
           ×
         </button>
         <div className="drawer__head">
-          <img className="drawer__photo" src={tutor.photo} alt={tutor.name} />
+          <img className="drawer__photo" src={photoSources(tutor.photo).src} alt={tutor.name} />
           <div>
             <h2>{tutor.name}</h2>
             <p className="drawer__meta">

@@ -18,7 +18,10 @@ export default function Header({ favoritesCount, total }) {
       <div className="hero">
         <img
           className="hero__image"
-          src="/images/hero.png"
+          src="/images/hero-1600.webp"
+          srcSet="/images/hero-960.webp 960w, /images/hero-1600.webp 1600w, /images/hero-2400.webp 2400w"
+          sizes="100vw"
+          fetchpriority="high"
           alt="Учні на занятті з репетитором"
           width={2400}
           height={900}

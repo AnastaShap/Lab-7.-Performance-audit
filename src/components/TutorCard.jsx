@@ -1,4 +1,5 @@
 import RatingStars from './RatingStars';
+import { photoSources } from '../utils/images';
 import { averageRating } from '../utils/rating';
 import { formatPrice, pluralize, FORMAT_LABELS } from '../utils/format';
 
@@ -9,12 +10,17 @@ export default function TutorCard({ tutor, isFavorite, isSelected, onSelect, onT
   return (
     <article className={'tutor-card' + (isSelected ? ' tutor-card--selected' : '')}>
       <div className="tutor-card__media">
+        {/* loading стоїть перед src: React 18 виставляє атрибути в порядку пропсів,
+            а деякі браузери починають завантаження, щойно з'являється src. */}
         <img
           className="tutor-card__photo"
-          src={tutor.photo}
+          loading="lazy"
+          decoding="async"
+          width={400}
+          height={400}
+          sizes="(max-width: 860px) calc(100vw - 32px), 350px"
+          {...photoSources(tutor.photo)}
           alt={tutor.name}
-          width={900}
-          height={900}
         />
         <button
           type="button"
